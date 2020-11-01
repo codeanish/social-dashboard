@@ -1,0 +1,10 @@
+version: '3.2'
+services:
+  social-followers:
+    env_file:
+       - .env
+    image: codeanish/social-followers:latest
+    restart: "no"
+    container_name: social-followers
+    ports:
+    - 4000:4000
