@@ -3,8 +3,22 @@ services:
   social-followers:
     env_file:
        - .env
+       - database.env
     image: codeanish/social-followers:latest
     restart: "no"
     container_name: social-followers
     ports:
     - 4000:4000
+  database:
+    image: postgres
+    restart: always
+    ports: 
+    - 5432:5432
+    container_name: postgres
+    env_file:
+      - database.env
+    volumes:
+      - database-data:/var/lib/postgresql/data
+
+volumes:
+  database-data:
