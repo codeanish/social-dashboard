@@ -9,7 +9,8 @@ pytest = "*"
 [packages]
 requests = "*"
 python-dotenv = "*"
-psycopg2 = "*"
+flask = "*"
+psycopg2-binary = "*"
 
 [requires]
 python_version = "3.9"
