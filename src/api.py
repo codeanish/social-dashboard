@@ -24,4 +24,11 @@ def get_twitter_followers():
     return jsonify(followers_repository.get_twitter_followers_timeseries())
 
 
+@app.route('/followers', methods = ['POST'])
+def save_twitter_followers_as_of():
+    content = request.get_json()
+    followers_repository.save_twitter_followers_as_of(content['followers'], content['as_of_date'])
+    return "OK"
+
+
 app.run(host='0.0.0.0')
