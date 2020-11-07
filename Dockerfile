@@ -1,11 +1,14 @@
 FROM python:3.9-slim-buster
 
 RUN pip install pipenv
-COPY Pipfile /usr/src/app/Pipfile
-WORKDIR /usr/src/app
+COPY Pipfile /usr/src/Pipfile
+WORKDIR /usr/src
+
 RUN pipenv lock --requirements > requirements.txt
 RUN pip install -r requirements.txt
 
-COPY ./api /usr/src/app
+COPY app /usr/src/app
 
-CMD ["python", "api.py"]
+ENV PYTHONPATH "${PYTHONPATH}:/usr/src/app"
+
+CMD ["python", "app/api.py"]

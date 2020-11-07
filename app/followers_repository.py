@@ -1,5 +1,5 @@
 import psycopg2
-import settings
+from app import settings
 
 def get_twitter_followers_timeseries():
     try:

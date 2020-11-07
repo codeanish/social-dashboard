@@ -1,4 +1,4 @@
-import settings
+from app import settings
 import requests
 
 def get_followers():

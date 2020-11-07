@@ -5,7 +5,7 @@ services:
        - .env
        - database.env
     image: codeanish/social-followers:latest
-    restart: "no"
+    restart: always
     container_name: social-followers
     ports:
     - 5000:5000
