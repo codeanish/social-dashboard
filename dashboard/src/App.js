@@ -1,9 +1,11 @@
+import Layout from './components/Layout'
+import TwitterFollowersCard from './components/TwitterFollowersCard'
 
 const App = () => {
   return (
-    <div>
-      Hello World
-    </div>
+    <Layout>
+      <TwitterFollowersCard />
+    </Layout>
   );
 }
 

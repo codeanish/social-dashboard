@@ -11,6 +11,7 @@ requests = "*"
 python-dotenv = "*"
 flask = "*"
 psycopg2-binary = "*"
+flask-cors = "*"
 
 [requires]
 python_version = "3.9"

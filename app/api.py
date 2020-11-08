@@ -3,8 +3,10 @@ from flask import request, jsonify
 from datetime import datetime
 from app import twitter
 from app import followers_repository
+from flask_cors import CORS
 
 app = flask.Flask(__name__)
+CORS(app)
 
 @app.route('/', methods= ['GET'])
 def health_check():
