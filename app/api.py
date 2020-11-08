@@ -36,12 +36,16 @@ def get_live_followers_from_twitter():
 
 
 def is_today(date_to_check):
+    if type(date_to_check) != datetime:
+        raise TypeError(f"Expected a type of datetime for the parameter date_to_check. Instead received  {date_to_check} a type {type(date_to_check)}")
     if date_to_check.date() == datetime.now().date():
         return True
     return False
 
 
 def date_in_the_past(date_to_check):
+    if type(date_to_check) != datetime:
+        raise TypeError(f"Expected a type of datetime for the parameter date_to_check. Instead received  {date_to_check} a type {type(date_to_check)}")
     if date_to_check.date() < datetime.now().date():
         return True
     return False
