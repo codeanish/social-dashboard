@@ -1,5 +1,5 @@
 import pytest
-from datetime import datetime, timedelta
+from datetime import date, datetime, timedelta
 from app import api
 from app import twitter
 from app import followers_repository
@@ -10,7 +10,7 @@ def test_health_check():
 
 
 def test_is_today():
-    today = datetime.now()
+    today = datetime.now().date()
     yesterday = today - timedelta(days=1)
     tomorrow = today + timedelta(days=1)
     assert api.is_today(today) == True
@@ -26,7 +26,7 @@ def test_is_today_invalid_input():
         api.is_today(-0.9327)
 
 def test_date_in_the_past():
-    today = datetime.now()
+    today = datetime.now().date()
     yesterday = today - timedelta(days=1)
     last_year = today - timedelta(days=365)
     tomorrow = today + timedelta(days=1)
@@ -57,3 +57,13 @@ def test_get_live_followers_from_twitter(monkeypatch):
     result = api.get_live_followers_from_twitter()
 
     assert result.get("followers") == 42
+
+def test_get_followers_as_of(monkeypatch):
+    as_of_date = date(2020,6,1)
+    def mock_followers_repo_as_of(as_of):
+        return {"as_of_date": "2020-06-01","followers": 100}
+    monkeypatch.setattr(followers_repository, "get_twitter_followers_as_of", mock_followers_repo_as_of)
+
+    result = api.get_followers_as_of(as_of_date)
+    assert result.get("followers") == 100
+    assert result.get("as_of_date") == "2020-06-01"
