@@ -1,0 +1,5 @@
+[run]
+omit = *test*, *.virtualenvs*
+
+[report]
+omit = *test*, *.virtualenvs*

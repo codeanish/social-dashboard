@@ -47,7 +47,6 @@ def rows_to_list_of_dict(rows: list) -> list:
 
 def row_to_dict(row: tuple) -> dict:
     followers = {}
-    # followers["as_of_date"] = datetime.strptime(row[0], "%a, %d %b %Y %H:%M:%S %Z").date()
     followers["as_of_date"] = row[0]
     followers["followers"] = row[1]    
     return followers
