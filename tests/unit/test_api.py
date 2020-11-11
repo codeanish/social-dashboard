@@ -3,7 +3,6 @@ from datetime import date, datetime, timedelta
 from app import api
 from app import twitter
 from app import followers_repository
-from flask import request
 
 def test_health_check():
     assert api.health_check() == "OK"
@@ -67,3 +66,36 @@ def test_get_followers_as_of(monkeypatch):
     result = api.get_followers_as_of(as_of_date)
     assert result.get("followers") == 100
     assert result.get("as_of_date") == "2020-06-01"
+
+
+def test_get_twitter_followers_no_as_of_date(monkeypatch):
+    def mock_as_of_date(request):
+        return None
+    monkeypatch.setattr(api, "get_as_of_date_from_request", mock_as_of_date)
+    def mock_twitter_timeseries():
+        return "Twitter Timeseries"
+    monkeypatch.setattr(api, "get_twitter_timeseries", mock_twitter_timeseries)
+    result = api.get_twitter_followers()
+    assert result == "Twitter Timeseries"
+
+
+def test_get_twitter_followers_today(monkeypatch):
+    def mock_as_of_date(request):
+        return date.today()
+    monkeypatch.setattr(api, "get_as_of_date_from_request", mock_as_of_date)
+    def mock_live_twitter_followers():
+        return "Live Twitter Followers"
+    monkeypatch.setattr(api, "get_live_followers_from_twitter", mock_live_twitter_followers)
+    result = api.get_twitter_followers()
+    assert result == "Live Twitter Followers"
+
+
+def test_get_twitter_followers_yesterday(monkeypatch):
+    def mock_as_of_date(request):
+        return date.today() - timedelta(days=1)
+    monkeypatch.setattr(api, "get_as_of_date_from_request", mock_as_of_date)
+    def mock_followers_as_of(as_of_date):
+        return "Followers as of"
+    monkeypatch.setattr(api, "get_followers_as_of", mock_followers_as_of)
+    result = api.get_twitter_followers()
+    assert result == "Followers as of"
