@@ -16,7 +16,7 @@ const TwitterFollowersCard = () => {
 `
 
     useEffect(() => {
-        fetch('http://127.0.0.1:5000/twitterfollowers?as_of_date=2020-11-12', 
+        fetch('http://127.0.0.1:5000/twitterfollowers?as_of_date=2020-11-13', 
         {
             method: "GET"
         })
